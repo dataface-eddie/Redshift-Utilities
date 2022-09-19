@@ -1,3 +1,14 @@
+/******************************************************
+Purpose:  The purpose of this query is to create an easy means to compare a metric that is being developed or QA'ed in a test table
+          against the same metric in a control table.
+How:      This is designed for the user to write their own high level test query and pull a single result for a test metric into the 
+          test CTE. Then the user can write a similar control metric in the control CTE. The CTE's are the only thing that should
+          need any updating prior to using.
+Useage:   The output should provide 3 fields and 4 records. The seq field can be ignored as it is just a sequencing mechanism. The
+          first row will provide the test data sample. The second row is the control. The third is the difference between the two.
+          The fourth row is the percent difference between the two. The last is shown as a percentage (out of 100). 
+          
+*******************************************************/
 WITH test AS(
     SELECT SUM(COALESCE(<DATA>, 0)) AS data
         , 'TEST - <metric_name>' AS metric
